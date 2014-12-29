@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>Json editor</title>
+	<link rel = "stylesheet" type = "text/css" href = "{% static 'static/css/foundation.css' %}">
+</head>
+<body>
+	<div class='row'>
+		<form name='load_file_form' method='POST' enctype="multipart/form-data">
+			{% csrf_token %}
+			<h4>Upload your JSON file
+				<p>
+				<input type='file' name='uploaded_file' class='button' onchange="this.form.submit();">
+				
+				</p> 
+			</h4>
+		</form> 
+	</div>
+	<div class='row'>
+		{% block editor %} {% endblock %}
+		{% if result_data %}
+			<h3>Result:</h3>
+			<p>{{result_data}}
+		{% endif %}
+	</div>
+</body>
+</html>

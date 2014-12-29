@@ -1,0 +1,19 @@
+{% extends 'main.html' %}
+
+{% block editor %}
+	<h2>
+		Original:
+		<p>{{original_data}}
+	</h2>
+	<hr>
+	<form name='parsed_json' method='get' action='/'>
+		Type:
+		<input name='form_type' type='text' value='{{json_type}}' maxlength='50'>
+		Tags:
+		<input name='form_tags' type='text' value='{{json_tags}}'>
+		Content:
+		<input name='form_content' type='text' value='{{json_content}}' maxlength='
+		150'>
+		<input name='sumbit' type='submit' value='Save' class='button'>
+	</form>
+{% endblock %}
