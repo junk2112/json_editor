@@ -10,7 +10,8 @@
 	<div class='row'>
 		<form name='load_file_form' method='POST' enctype="multipart/form-data">
 			{% csrf_token %}
-			<h4>Upload your JSON file
+			<h4>
+				Upload your JSON file
 				<p>
 				<input type='file' name='uploaded_file' class='button' onchange="this.form.submit();">
 				
@@ -19,11 +20,30 @@
 		</form> 
 	</div>
 	<div class='row'>
-		{% block editor %} {% endblock %}
-		{% if result_data %}
-			<h3>Result:</h3>
+		{% if original_data != None and json_load_error == False%}
+			<h3>Original json:</h3>
+			<p>{{original_data}}
+			<hr>
+		{% elif json_load_error == True %}
+			<h3>Uploaded file has no .json type</h3>
+			<hr>
+		{% endif %}
+		<form name='parsed_json' method='get' action='/'>
+			Type:
+			<input name='form_type' type='text' value='{{json_type}}' maxlength='50'>
+			Tags:
+			<input name='form_tags' type='text' value='{{json_tags}}'>
+			Content:
+			<input name='form_content' type='text' value='{{json_content}}' maxlength='
+			150'>
+			<input name='sumbit' type='submit' value='Save' class='button'>
+		</form>
+		{% if result_data != None %}
+			<hr>
+			<h3>Result json:</h3>
 			<p>{{result_data}}
 		{% endif %}
+
 	</div>
 </body>
 </html>
