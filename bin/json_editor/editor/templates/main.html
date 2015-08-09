@@ -7,7 +7,7 @@
 	<link rel = "stylesheet" type = "text/css" href = "{% static 'static/css/foundation.css' %}">
 </head>
 <body>
-	<div class='row'>
+	<!--div class='row'>
 		<form name='load_file_form' method='POST' enctype="multipart/form-data">
 			{% csrf_token %}
 			<h4>
@@ -17,32 +17,35 @@
 				
 				</p> 
 			</h4>
-		</form> 
+		</form--> 
 	</div>
 	<div class='row'>
-		{% if original_data != None and json_load_error == False%}
-			<h3>Original json:</h3>
-			<p>{{original_data}}
-			<hr>
-		{% elif json_load_error == True %}
-			<h3>Uploaded file has no .json type</h3>
-			<hr>
-		{% endif %}
-		<form name='parsed_json' method='get' action='/'>
-			Type:
-			<input name='form_type' type='text' value='{{json_type}}' maxlength='50'>
-			Tags:
-			<input name='form_tags' type='text' value='{{json_tags}}'>
-			Content:
-			<input name='form_content' type='text' value='{{json_content}}' maxlength='
-			150'>
+		<h3>"-1.0" в поле "Рублевые" обозначает, что на этой точке комиссия будет оставаться такой же, как выставил Юнистрим</h3>
+		<form name='parsed_json' method='post' action='/'>
+			{% csrf_token %}
+			<table>
+				<thead>
+					<tr>
+						<td><b>Название точки</b></td>
+						<td><b>Рублевые</b></td>
+						<td><b>Долларовые</b></td>
+						<td><b>Максимальная</b></td>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item in data %}
+						<tr>
+							<td>{{item.russian_name}}</td>
+							<td><input name='{{item.penalty_input_name}}' type='number' value='{{item.penalty}}'></td>
+							<td><input name='{{item.penalty_usd_input_name}}' type='number' value='{{item.penalty_usd}}'></td>
+							<td><input name='{{item.max_input_name}}' type='number' value='{{item.max}}'></td>
+						</tr>
+					{% endfor %}
+				</tbody>			
+			</table>
+
 			<input name='sumbit' type='submit' value='Save' class='button'>
 		</form>
-		{% if result_data != None %}
-			<hr>
-			<h3>Result json:</h3>
-			<p>{{result_data}}
-		{% endif %}
 
 	</div>
 </body>
