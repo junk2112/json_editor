@@ -28,7 +28,8 @@ def home(request):
 		"ryazanka": 	"Рязанка",
 		"topolek": 		"Тополек",
 		"test": 		"Вещевая",
-		"lublino": 		"Люблино"
+		"lublino": 		"Люблино",
+		"food_city":    "Фуд Сити"
 	}
 
 	points = []
